@@ -1,5 +1,5 @@
 # Note Summarizer
-This is a note summarizer app that makes use of the Cohere API. Built using React.js, Flask, and the Cohere API
+This is a WIP note summarizer app that makes use of the Cohere API. Built using React.js, Flask, and the Cohere API.
 
 ### Client:
 Run the following commands from the root directory:
