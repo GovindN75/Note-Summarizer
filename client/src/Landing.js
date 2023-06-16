@@ -30,7 +30,7 @@ const Landing = () => {
   };
 
   const bulletRender = () => {
-    if(format == "Bullets" && Array.isArray(summary)){
+    if(format == "Bullets" && summary.length > 0){
       return (
           <ul style={{ paddingLeft: 0, marginLeft: 0 }}>
           {summary.map((item, index) => (
