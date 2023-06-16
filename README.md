@@ -10,7 +10,7 @@ npm install
 npm start
 ```
 
-The frontend of the application is now running locally on your computer.
+The frontend of the application is now running locally on your computer (Usually port 3000).
 
 ### Server:
 On a new terminal, run the following commands from the root directory:
@@ -20,4 +20,4 @@ pip install -r requirements.txt
 python backend.py
 ```
 
-The server is now running locally on your machine.
+The server is now running locally on your machine (Usually port 5000).
