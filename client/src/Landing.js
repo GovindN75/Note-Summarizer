@@ -22,33 +22,67 @@ const Landing = () => {
         return response.json();
       })
       .then(data => {
-        console.log(data.summary);
-        setSummary(data.summary); 
-        // Here you would handle the summarized text.
-      }).catch(error => console.log('Error:', error));
+        setSummary(data); 
+      })
+      .catch(error => console.log('Error:', error));
+
       
   };
 
-//   return (
-//     <div>
-//       <textarea value={text} onChange={e => setText(e.target.value)} />
-//       <select value={summaryLength} onChange={e => setSummaryLength(e.target.value)}>
-//         <option value={"short"}>Short</option>
-//         <option value={"medium"}>Medium</option>
-//         <option value={"long"}>Long</option>
-//       </select>
-//       <select value={format} onChange={e => setFormat(e.target.value)}>
-//         <option value="paragraph">Paragraph</option>
-//         <option value="bullets">Bullet Points</option>
-//       </select>
-//       <button onClick={summarize}>Summarize</button>
-//       <p>{summary}</p> {/* Display the summary */}
-//     </div>
-//   );
+  const bulletRender = () => {
+    if(format == "Bullets" && Array.isArray(summary)){
+      return (
+          <ul style={{ paddingLeft: 0, marginLeft: 0 }}>
+          {summary.map((item, index) => (
+            <li style={{ listStyleType: 'none', textAlign: 'left' }} key={index}>{item}</li>
+          ))}
+        </ul>
+      );
+    } else {
+      return <p>{summary[0]}</p>;
+    }
+  }
+
     return(
-        <Container maxWidth="lg" style={{height: '100vh'}}>
+      <Container maxWidth="lg" style={{height: '100vh', marginTop: '5em'}}>
+        <p>Please note that if the input is over 500 words, it may take longer to retrive a summary.</p>
         <Grid container spacing={3}>
-          <Grid item xs={12} md={6}>
+          <Grid item xs={12}>
+            <Grid container justifyContent="space-between" spacing={3}>
+              <Grid item xs={12} md={6}>
+                <FormControl fullWidth margin="normal">
+                  <InputLabel id="summary-length-label">Size of Summary</InputLabel>
+                  <Select
+                    labelId="summary-length-label"
+                    id="summary-length-select"
+                    value={summaryLength}
+                    onChange={e => setSummaryLength(e.target.value)}
+                    style={{marginTop: '5px'}}
+                  >
+                    <MenuItem value={'Short'}>Short</MenuItem>
+                    <MenuItem value={'Medium'}>Medium</MenuItem>
+                    <MenuItem value={'Long'}>Long</MenuItem>
+                  </Select>
+                </FormControl>
+              </Grid>
+              <Grid item xs={12} md={6}>
+                <FormControl fullWidth margin="normal">
+                  <InputLabel id="summary-format-label">Style of Summary</InputLabel>
+                  <Select
+                    labelId="summary-format-label"
+                    id="summary-format-select"
+                    value={format}
+                    onChange={e => setFormat(e.target.value)}
+                    style={{marginTop: '5px'}}
+                  >
+                    <MenuItem value={'Paragraph'}>Paragraph</MenuItem>
+                    <MenuItem value={'Bullets'}>Bullets</MenuItem>
+                  </Select>
+                </FormControl>
+              </Grid>
+            </Grid>
+          </Grid>
+          <Grid item xs={12}>
             <TextField
               variant="outlined"
               margin="normal"
@@ -59,36 +93,11 @@ const Landing = () => {
               autoFocus
               value={text}
               onChange={e => setText(e.target.value)}
+              multiline
+              rows={10}
+              maxRows={12}
+              style={{resize: "vertical"}}
             />
-          </Grid>
-          <Grid item xs={12} md={3}>
-            <FormControl fullWidth margin="normal">
-              <InputLabel id="summary-length-label">Size of Summary</InputLabel>
-              <Select
-                labelId="summary-length-label"
-                id="summary-length-select"
-                value={summaryLength}
-                onChange={e => setSummaryLength(e.target.value)}
-              >
-                <MenuItem value={'Short'}>Short</MenuItem>
-                <MenuItem value={'Medium'}>Medium</MenuItem>
-                <MenuItem value={'Long'}>Long</MenuItem>
-              </Select>
-            </FormControl>
-          </Grid>
-          <Grid item xs={12} md={3}>
-            <FormControl fullWidth margin="normal">
-              <InputLabel id="summary-format-label">Style of Summary</InputLabel>
-              <Select
-                labelId="summary-format-label"
-                id="summary-format-select"
-                value={format}
-                onChange={e => setFormat(e.target.value)}
-              >
-                <MenuItem value={'Paragraph'}>Paragraph</MenuItem>
-                <MenuItem value={'Bullets'}>Bullets</MenuItem>
-              </Select>
-            </FormControl>
           </Grid>
           <Grid item xs={12}>
             <Button 
@@ -101,7 +110,7 @@ const Landing = () => {
           </Grid>
           <Grid item xs={12}>
             <Typography variant="h6" component="h2">
-              {summary}
+              {bulletRender()}
             </Typography>
           </Grid>
         </Grid>
