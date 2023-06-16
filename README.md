@@ -16,7 +16,7 @@ The frontend of the application is now running locally on your computer.
 On a new terminal, run the following commands from the root directory:
 ```bash
 cd server
-pip install requirements.txt
+pip install -r requirements.txt
 python backend.py
 ```
 
