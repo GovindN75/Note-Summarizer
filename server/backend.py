@@ -7,7 +7,7 @@ import re
 
 app = Flask(__name__)
 CORS(app)
-api_key = '' # INSERT YOUR API KEY HERE!!!!
+api_key = 'oF6eA5FnAgLKeezfIAgjWn7PraIRJHH00riUjr5Q' 
 co = cohere.Client(api_key)
 MAX_STRING_SIZE = 1000
 
